@@ -72,7 +72,7 @@ def train_gan(epochs, lr, dataset_dir):
         transforms.Normalize(mean=0.5, std=0.5)
     ])
 
-    train_loader = torch.utils.data.DataLoader(Emnist(root_dir='./data/mnist', transforms=transform), batch_size=8)
+    train_loader = torch.utils.data.DataLoader(Emnist(root_dir='/home/erickoala/Documents/decripting/decode_net_predictions/data/mnist', transforms=transform), batch_size=8)
     print('here')
 
     gen = generator(input_size=14, n_class=28*28)
@@ -121,16 +121,16 @@ def classify_images():
     preds = []
     model = getattr(resnet, f"cifar100_resnet32")()
 
-    checkpoint = torch.load('cifar_mode/cifar100_resnet20-23dac2f1.pt')
+    checkpoint = torch.load('/home/erickoala/Documents/decripting/decode_net_predictions/cifar_mode/cifar100_resnet20-23dac2f1.pt')
     model.load_state_dict(checkpoint)
     model.eval()
 
     transform = transform.Compose([transform.ToTensor()])
-    dataset = torchvision.datasets.CIFAR100("dataset/cifar", train=True, transforms=transforms, download=True)
+    dataset = torchvision.datasets.CIFAR100("/home/erickoala/Documents/decripting/decode_net_predictions/dataset/cifar", train=True, transforms=transforms, download=True)
 
     train_loader = torch.utils.data.DataLoader(dataset, batch_len=8)
 
-    files = os.listdir('./images/infer')
+    files = os.listdir('/home/erickoala/Documents/decripting/decode_net_predictions/./images/infer')
     
     for filename in sorted(files):
         img = transform(PIL.Image.open(filename))
@@ -160,7 +160,7 @@ def generate_message_from_encode(encode):
     encode_pred = [ pred for pred, label in encode ]
     print(f'\n{encode_pred}')
     gen = generator(input_size=14, n_class=28*28)
-    checkpoint = torch.load('./gan_pretrainedgenerator_emnist.pt', map_location=torch.device('cpu'))
+    checkpoint = torch.load('/home/erickoala/Documents/decripting/decode_net_predictions//gan_pretrainedgenerator_emnist.pt', map_location=torch.device('cpu'))
 
     gen.load_state_dict(checkpoint['model_state_dict'])
     one_hot = torch.from_numpy(num_to_one_hot_vector(encode_pred))
