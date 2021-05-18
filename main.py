@@ -15,11 +15,8 @@ from tqdm import tqdm
 import os
 from PIL import Image
 import PIL
-
-# nets with cifar https://github.com/chenyaofo/pytorch-cifar-models
+# https://github.com/baldeagle86
 import pytorch_cifar_models.pytorch_cifar_models.resnet as resnet
-
-# nets with cifar https://github.com/kuangliu/pytorch-cifar
 import pytorch_cifar
 from utils import *
 from utils2 import *
